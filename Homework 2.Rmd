@@ -1,0 +1,16 @@
+---
+title: "Homework 2"
+author: "Bingkun Luo"
+date: "9/26/2019"
+output: github_document
+---
+
+#Problem 1
+
+```{r}
+
+```
+
+#Problem 2
+
+#Problem 3
