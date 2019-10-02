@@ -24,6 +24,28 @@ Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P81
 sports_balls_integer = as.integer(pull(Mr_Trash_Wheel_data,sports_balls))  
 mutate(Mr_Trash_Wheel_data,sports_balls = sports_balls_integer)
 ```
+#b
+```{r}
+precipitation_2018 = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+                        sheet = 5,range = "A2:B15") %>%
+   janitor::clean_names()%>%
+   drop_na(month)
+
+precipitation_2018 = mutate(precipitation_2018,year = 2018)%>%
+  select(year, precipitation_in_month = month,total)
+
+```
+
+
+```{r}
+precipitation_2017 = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+                        sheet = 6,range = "A2:B15") %>%
+   janitor::clean_names()%>%
+   drop_na(month)
+
+ precipitation_2017 = mutate(precipitation_2017,year = 2017)%>%
+  select(year, precipitation_in_month = month,total) 
+```
 
 
 #Problem 2
