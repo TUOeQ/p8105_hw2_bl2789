@@ -5,11 +5,26 @@ date: "9/26/2019"
 output: github_document
 ---
 
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(readxl)
+ 
+```
+
 #Problem 1
 
 ```{r}
+Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+                        sheet = 1, range = "A2:N336") %>%
 
+  janitor::clean_names()%>%
+  drop_na(dumpster)
+
+sports_balls_integer = as.integer(pull(Mr_Trash_Wheel_data,sports_balls))  
+mutate(Mr_Trash_Wheel_data,sports_balls = sports_balls_integer)
 ```
+
 
 #Problem 2
 
