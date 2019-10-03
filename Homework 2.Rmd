@@ -13,7 +13,7 @@ library(readxl)
 ```
 
 # Problem 1
-
+## a
 ```{r}
 Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
                         sheet = 1, range = "A2:N408") %>%
@@ -24,7 +24,7 @@ Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P81
 sports_balls_integer = as.integer(pull(Mr_Trash_Wheel_data,sports_balls))  
 mutate(Mr_Trash_Wheel_data,sports_balls = sports_balls_integer)
 ```
-#b
+## b
 ```{r}
 precipitation_2018 = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
                         sheet = 5,range = "A2:B15") %>%
@@ -85,8 +85,30 @@ pols_month = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeigh
 
 ## b
 ```{r}
-
+snp = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datasets/snp.csv")%>% 
+  separate(date,into = c('month','day','year'),'/')%>%
+  mutate(month = month.name[as.integer(month)])%>%
+  select('year','month','close')
 ```
 
+## c
+```{r}
+unemployment = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datasets/unemployment.csv")
+
+unemployment = pivot_longer(unemployment,
+               Jan:Dec,
+               names_to = 'month',
+               values_to = 'unemployment')%>% 
+   mutate(month = as.character(factor(month, labels = month.name)),
+          year = as.character(Year))%>%
+  select(year,month,unemployment)
+  
+```
+## d
+```{r}
+
+Final = full_join(pols_month,snp)
+Result = full_join(Final,unemployment)
+```
 
 #Problem 3

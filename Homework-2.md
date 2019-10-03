@@ -5,6 +5,8 @@ Bingkun Luo
 
 # Problem 1
 
+## a
+
 ``` r
 Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
                         sheet = 1, range = "A2:N408") %>%
@@ -34,7 +36,7 @@ mutate(Mr_Trash_Wheel_data,sports_balls = sports_balls_integer)
     ## #   grocery_bags <dbl>, chip_bags <dbl>, sports_balls <int>,
     ## #   homes_powered <dbl>
 
-\#b
+## b
 
 ``` r
 precipitation_2018 = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
@@ -138,5 +140,65 @@ pols_month = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeigh
     ## )
 
 ## b
+
+``` r
+snp = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datasets/snp.csv")%>% 
+  separate(date,into = c('month','day','year'),'/')%>%
+  mutate(month = month.name[as.integer(month)])%>%
+  select('year','month','close')
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   date = col_character(),
+    ##   close = col_double()
+    ## )
+
+## c
+
+``` r
+unemployment = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datasets/unemployment.csv")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   Year = col_double(),
+    ##   Jan = col_double(),
+    ##   Feb = col_double(),
+    ##   Mar = col_double(),
+    ##   Apr = col_double(),
+    ##   May = col_double(),
+    ##   Jun = col_double(),
+    ##   Jul = col_double(),
+    ##   Aug = col_double(),
+    ##   Sep = col_double(),
+    ##   Oct = col_double(),
+    ##   Nov = col_double(),
+    ##   Dec = col_double()
+    ## )
+
+``` r
+unemployment = pivot_longer(unemployment,
+               Jan:Dec,
+               names_to = 'month',
+               values_to = 'unemployment')%>% 
+   mutate(month = as.character(factor(month, labels = month.name)),
+          year = as.character(Year))%>%
+  select(year,month,unemployment)
+```
+
+## d
+
+``` r
+Final = full_join(pols_month,snp)
+```
+
+    ## Joining, by = c("year", "month")
+
+``` r
+Result = full_join(Final,unemployment)
+```
+
+    ## Joining, by = c("year", "month")
 
 \#Problem 3
