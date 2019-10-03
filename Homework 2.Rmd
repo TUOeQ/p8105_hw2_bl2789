@@ -109,6 +109,17 @@ unemployment = pivot_longer(unemployment,
 
 Final = full_join(pols_month,snp)
 Result = full_join(Final,unemployment)
+
+str(Result)
 ```
+* From table above, we can see that the **Result** dataset has `r nrow(Result)` observations and `r ncol(Result)` variables, including year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president, close, unemployment.
 
 #Problem 3
+
+```{r}
+Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Popular_Baby_Names.csv")
+
+# Remove duplicate rows of the dataframe
+Popular_Baby_Names = distinct(Popular_Baby_Names)
+```
+
