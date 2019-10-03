@@ -72,6 +72,21 @@ str(Final_precipitation)
 * The total precipitation in 2018 is **`r sum(pull(precipitation_2018, total))`**
 * The median number of sports balls in a dumpster in 2017 is **`r median(pull(Mr_Trash_Wheel_data[Mr_Trash_Wheel_data$year==2017,],sports_balls))`**
 
-#Problem 2
+# Problem 2
+## a
+```{r}
+pols_month = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datasets/pols-month.csv")%>% 
+  separate(mon,into = c('year','month','day'),'-')%>% 
+  mutate(month = month.name[as.integer(month)],
+         president = recode(as.character(prez_gop),'1'='gop','0'='dem'))%>%
+  select(-prez_dem,-prez_gop,-day)
+
+```
+
+## b
+```{r}
+
+```
+
 
 #Problem 3

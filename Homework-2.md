@@ -109,8 +109,34 @@ Final_precipitation = mutate(precipitation, month_name)%>%
     ##  $ total     : num  2.34 1.46 3.57 3.99 5.64 1.4 7.09 4.44 1.95 0 ...
 
   - The total precipitation in 2018 is **70.33**
-  - The median number of sports balls in a dumpster in 2017 is **8**
+  - The median number of sports balls in a dumpster in 2017 is
+**8**
 
-\#Problem 2
+# Problem 2
+
+## a
+
+``` r
+pols_month = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datasets/pols-month.csv")%>% 
+  separate(mon,into = c('year','month','day'),'-')%>% 
+  mutate(month = month.name[as.integer(month)],
+         president = recode(as.character(prez_gop),'1'='gop','0'='dem'))%>%
+  select(-prez_dem,-prez_gop,-day)
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   mon = col_date(format = ""),
+    ##   prez_gop = col_double(),
+    ##   gov_gop = col_double(),
+    ##   sen_gop = col_double(),
+    ##   rep_gop = col_double(),
+    ##   prez_dem = col_double(),
+    ##   gov_dem = col_double(),
+    ##   sen_dem = col_double(),
+    ##   rep_dem = col_double()
+    ## )
+
+## b
 
 \#Problem 3
