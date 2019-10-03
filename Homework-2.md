@@ -3,8 +3,7 @@ Homework 2
 Bingkun Luo
 9/26/2019
 
-\#Problem
-1
+# Problem 1
 
 ``` r
 Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
@@ -75,13 +74,6 @@ Final_precipitation = mutate(precipitation, month_name)%>%
   - The number of the observations in the **Mr.Trash Wheel** dataset is
     334 and 14 variables and the key varibles are shown below.
 
-  - The number of the observations in the **Final precipitation**
-    dataset is 24 and 3 variables and the key varibles are shown below.
-
-  - The total precipitation in 2018 is **70.33**
-
-  - The median number of sports balls in a dumpster in 2017 is **8**
-
   - **Mr.Trash
     Wheel**
 
@@ -103,6 +95,9 @@ Final_precipitation = mutate(precipitation, month_name)%>%
     ##  $ sports_balls      : num  7.2 5.2 6 6 7.2 5.2 3.2 6.4 5.6 7.2 ...
     ##  $ homes_powered     : num  0 0 0 0 0 0 0 0 0 0 ...
 
+  - The number of the observations in the **Final precipitation**
+    dataset is 24 and 3 variables and the key varibles are shown below.
+
   - **Final
     precipitation**
 
@@ -112,6 +107,9 @@ Final_precipitation = mutate(precipitation, month_name)%>%
     ##  $ year      : num  2017 2017 2017 2017 2017 ...
     ##  $ month_name: chr  "January" "February" "March" "April" ...
     ##  $ total     : num  2.34 1.46 3.57 3.99 5.64 1.4 7.09 4.44 1.95 0 ...
+
+  - The total precipitation in 2018 is **70.33**
+  - The median number of sports balls in a dumpster in 2017 is **8**
 
 \#Problem 2
 

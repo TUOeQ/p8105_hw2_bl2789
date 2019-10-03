@@ -12,7 +12,7 @@ library(readxl)
  
 ```
 
-#Problem 1
+# Problem 1
 
 ```{r}
 Mr_Trash_Wheel_data = read_excel(path = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
@@ -58,19 +58,19 @@ Final_precipitation = mutate(precipitation, month_name)%>%
 
 ```
 * The number of the observations in the **Mr.Trash Wheel** dataset is 334 and 14 variables and the key varibles are shown below.
-* The number of the observations in the **Final precipitation** dataset is 24 and 3 variables and the key varibles are shown below.
-* The total precipitation in 2018 is **`r sum(pull(precipitation_2018, total))`**
-* The median number of sports balls in a dumpster in 2017 is **`r median(pull(Mr_Trash_Wheel_data[Mr_Trash_Wheel_data$year==2017,],sports_balls))`**
-
 
 * **Mr.Trash Wheel**
 ```{r echo=FALSE}
 str(Mr_Trash_Wheel_data)
 ```
+* The number of the observations in the **Final precipitation** dataset is 24 and 3 variables and the key varibles are shown below.
+
 * **Final precipitation**
 ```{r echo=FALSE}
 str(Final_precipitation)
 ```
+* The total precipitation in 2018 is **`r sum(pull(precipitation_2018, total))`**
+* The median number of sports balls in a dumpster in 2017 is **`r median(pull(Mr_Trash_Wheel_data[Mr_Trash_Wheel_data$year==2017,],sports_balls))`**
 
 #Problem 2
 
