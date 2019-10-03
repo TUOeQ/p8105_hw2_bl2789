@@ -190,13 +190,15 @@ unemployment = pivot_longer(unemployment,
 ## d
 
 ``` r
-Final = full_join(pols_month,snp)
+Final = full_join(pols_month,snp)%>%
+ drop_na(gov_gop)
 ```
 
     ## Joining, by = c("year", "month")
 
 ``` r
-Result = full_join(Final,unemployment)
+Result = full_join(Final,unemployment)%>%
+ drop_na(gov_gop)
 ```
 
     ## Joining, by = c("year", "month")
@@ -205,7 +207,7 @@ Result = full_join(Final,unemployment)
 str(Result)
 ```
 
-    ## Classes 'tbl_df', 'tbl' and 'data.frame':    828 obs. of  11 variables:
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    822 obs. of  11 variables:
     ##  $ year        : chr  "1947" "1947" "1947" "1947" ...
     ##  $ month       : chr  "January" "February" "March" "April" ...
     ##  $ gov_gop     : num  23 23 23 23 23 23 23 23 23 23 ...
@@ -218,9 +220,29 @@ str(Result)
     ##  $ close       : num  NA NA NA NA NA NA NA NA NA NA ...
     ##  $ unemployment: num  NA NA NA NA NA NA NA NA NA NA ...
 
-  - From table above, we can see that the **Result** dataset has 828
+  - From table above, we can see that the **Result** dataset has 822
     observations and 11 variables, including year, month, gov\_gop,
     sen\_gop, rep\_gop, gov\_dem, sen\_dem, rep\_dem, president, close,
     unemployment.
 
-\#Problem 3
+\#Problem
+3
+
+``` r
+Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Popular_Baby_Names.csv")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   `Year of Birth` = col_double(),
+    ##   Gender = col_character(),
+    ##   Ethnicity = col_character(),
+    ##   `Child's First Name` = col_character(),
+    ##   Count = col_double(),
+    ##   Rank = col_double()
+    ## )
+
+``` r
+# Remove duplicate rows of the dataframe
+Popular_Baby_Names = distinct(Popular_Baby_Names)
+```

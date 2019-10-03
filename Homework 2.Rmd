@@ -107,8 +107,10 @@ unemployment = pivot_longer(unemployment,
 ## d
 ```{r}
 
-Final = full_join(pols_month,snp)
-Result = full_join(Final,unemployment)
+Final = full_join(pols_month,snp)%>%
+ drop_na(gov_gop)
+Result = full_join(Final,unemployment)%>%
+ drop_na(gov_gop)
 
 str(Result)
 ```
