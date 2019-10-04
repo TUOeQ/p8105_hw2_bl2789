@@ -164,5 +164,14 @@ pivot_wider(B,
   id_cols = "ethnicity")
 ```
 
+## c
+```{r}
+ ##for male, white non-hispanic children born in 2016, 
+filter(Popular_Baby_Names,
+           gender == "MALE",
+           ethnicity == "White non hispanic",
+           year_of_birth == 2016)
+
+```
 
 
