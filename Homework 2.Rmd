@@ -128,15 +128,27 @@ Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_
   janitor::clean_names()%>%
   mutate(gender = toupper(gender),
          ethnicity = recode(firstup(tolower(ethnicity)),
-         "asian and paci"="asian and pacific islander",
-         "black non hisp"="black non hispanic",
-         "white non hisp"="white non hispanic"),
+         "Asian and paci"="Asian and pacific islander",
+         "Black non hisp"="Black non hispanic",
+         "White non hisp"="White non hispanic"),
          childs_first_name = firstup(tolower(childs_first_name)))
   
 
 # Remove duplicate rows of the dataframe
 Popular_Baby_Names = distinct(Popular_Baby_Names)
 
+
+```
+## a
+```{r}
+A = filter(Popular_Baby_Names,
+           childs_first_name == "Olivia",
+           gender == "FEMALE")
+ 
+pivot_wider(A, 
+  names_from = "year_of_birth", 
+  values_from = "rank",
+  id_cols = "ethnicity")
 
 ```
 
