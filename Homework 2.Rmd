@@ -152,3 +152,17 @@ pivot_wider(A,
 
 ```
 
+## b
+```{r}
+B = filter(Popular_Baby_Names,
+           gender == "MALE",
+           rank == which.min(rank))
+ 
+pivot_wider(B, 
+  names_from = "year_of_birth", 
+  values_from = "childs_first_name",
+  id_cols = "ethnicity")
+```
+
+
+

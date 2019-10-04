@@ -225,11 +225,22 @@ str(Result)
     sen\_gop, rep\_gop, gov\_dem, sen\_dem, rep\_dem, president, close,
     unemployment.
 
-\#Problem
-3
+\#Problem 3
 
 ``` r
-Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Popular_Baby_Names.csv")
+firstup <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
+
+Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Popular_Baby_Names.csv")%>%
+  janitor::clean_names()%>%
+  mutate(gender = toupper(gender),
+         ethnicity = recode(firstup(tolower(ethnicity)),
+         "Asian and paci"="Asian and pacific islander",
+         "Black non hisp"="Black non hispanic",
+         "White non hisp"="White non hispanic"),
+         childs_first_name = firstup(tolower(childs_first_name)))
 ```
 
     ## Parsed with column specification:
@@ -246,3 +257,45 @@ Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_
 # Remove duplicate rows of the dataframe
 Popular_Baby_Names = distinct(Popular_Baby_Names)
 ```
+
+## a
+
+``` r
+A = filter(Popular_Baby_Names,
+           childs_first_name == "Olivia",
+           gender == "FEMALE")
+ 
+pivot_wider(A, 
+  names_from = "year_of_birth", 
+  values_from = "rank",
+  id_cols = "ethnicity")
+```
+
+    ## # A tibble: 4 x 7
+    ##   ethnicity                  `2016` `2015` `2014` `2013` `2012` `2011`
+    ##   <chr>                       <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+    ## 1 Asian and pacific islander      1      1      1      3      3      4
+    ## 2 Black non hispanic              8      4      8      6      8     10
+    ## 3 Hispanic                       13     16     16     22     22     18
+    ## 4 White non hispanic              1      1      1      1      4      2
+
+## b
+
+``` r
+B = filter(Popular_Baby_Names,
+           gender == "MALE",
+           rank == which.min(rank))
+ 
+pivot_wider(B, 
+  names_from = "year_of_birth", 
+  values_from = "childs_first_name",
+  id_cols = "ethnicity")
+```
+
+    ## # A tibble: 4 x 7
+    ##   ethnicity                  `2016` `2015` `2014` `2013` `2012` `2011` 
+    ##   <chr>                      <chr>  <chr>  <chr>  <chr>  <chr>  <chr>  
+    ## 1 Asian and pacific islander Ethan  Jayden Jayden Jayden Ryan   Ethan  
+    ## 2 Black non hispanic         Noah   Noah   Ethan  Ethan  Jayden Jayden 
+    ## 3 Hispanic                   Liam   Liam   Liam   Jayden Jayden Jayden 
+    ## 4 White non hispanic         Joseph David  Joseph David  Joseph Michael
