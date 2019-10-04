@@ -119,9 +119,24 @@ str(Result)
 #Problem 3
 
 ```{r}
-Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Popular_Baby_Names.csv")
+firstup <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
+
+Popular_Baby_Names = read_csv(file = "C:/Users/61693/Desktop/data Science/P8105_Hw2_bl2789/Popular_Baby_Names.csv")%>%
+  janitor::clean_names()%>%
+  mutate(gender = toupper(gender),
+         ethnicity = recode(firstup(tolower(ethnicity)),
+         "asian and paci"="asian and pacific islander",
+         "black non hisp"="black non hispanic",
+         "white non hisp"="white non hispanic"),
+         childs_first_name = firstup(tolower(childs_first_name)))
+  
 
 # Remove duplicate rows of the dataframe
 Popular_Baby_Names = distinct(Popular_Baby_Names)
+
+
 ```
 
