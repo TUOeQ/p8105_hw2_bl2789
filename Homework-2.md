@@ -139,6 +139,21 @@ pols_month = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeigh
     ##   rep_dem = col_double()
     ## )
 
+``` r
+str(pols_month)
+```
+
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    822 obs. of  9 variables:
+    ##  $ year     : chr  "1947" "1947" "1947" "1947" ...
+    ##  $ month    : chr  "January" "February" "March" "April" ...
+    ##  $ gov_gop  : num  23 23 23 23 23 23 23 23 23 23 ...
+    ##  $ sen_gop  : num  51 51 51 51 51 51 51 51 51 51 ...
+    ##  $ rep_gop  : num  253 253 253 253 253 253 253 253 253 253 ...
+    ##  $ gov_dem  : num  23 23 23 23 23 23 23 23 23 23 ...
+    ##  $ sen_dem  : num  45 45 45 45 45 45 45 45 45 45 ...
+    ##  $ rep_dem  : num  198 198 198 198 198 198 198 198 198 198 ...
+    ##  $ president: chr  "dem" "dem" "dem" "dem" ...
+
 ## b
 
 ``` r
@@ -153,6 +168,15 @@ snp = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datas
     ##   date = col_character(),
     ##   close = col_double()
     ## )
+
+``` r
+str(snp)
+```
+
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    787 obs. of  3 variables:
+    ##  $ year : chr  "2015" "2015" "2015" "2015" ...
+    ##  $ month: chr  "July" "June" "May" "April" ...
+    ##  $ close: num  2080 2063 2107 2086 2068 ...
 
 ## c
 
@@ -185,7 +209,14 @@ unemployment = pivot_longer(unemployment,
    mutate(month = as.character(factor(month, labels = month.name)),
           year = as.character(Year))%>%
   select(year,month,unemployment)
+
+str(unemployment)
 ```
+
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    816 obs. of  3 variables:
+    ##  $ year        : chr  "1948" "1948" "1948" "1948" ...
+    ##  $ month       : chr  "May" "April" "August" "January" ...
+    ##  $ unemployment: num  3.4 3.8 4 3.9 3.5 3.6 3.6 3.9 3.8 3.7 ...
 
 ## d
 
@@ -198,7 +229,7 @@ Final = full_join(pols_month,snp)%>%
 
 ``` r
 Result = full_join(Final,unemployment)%>%
- drop_na(gov_gop)
+  drop_na(gov_gop)
 ```
 
     ## Joining, by = c("year", "month")
@@ -220,10 +251,28 @@ str(Result)
     ##  $ close       : num  NA NA NA NA NA NA NA NA NA NA ...
     ##  $ unemployment: num  NA NA NA NA NA NA NA NA NA NA ...
 
-  - From table above, we can see that the **Result** dataset has 822
-    observations and 11 variables, including year, month, gov\_gop,
+  - From **pols\_month** dataset has 822 observations and 9 variables,
+    including year, month, gov\_gop, sen\_gop, rep\_gop, gov\_dem,
+    sen\_dem, rep\_dem, president. The range of years for this final
+    dataset is from 1947 to 2015, the dataset provides the election data
+    for governors, senators, representatives and president for being
+    either republican or democrat.
+
+  - From **snp** dataset has 787 observations and 3 variables, including
+    year, month, close. The range of years for this final dataset is
+    from 1950 to 2015.This dataset provides the closing data for S\&P
+    acrossing 1950 to 2015 on the US stock market.
+
+  - From **unemployment** dataset has 816 observations and 3 variables,
+    including year, month, unemployment. The range of years for this
+    final dataset is from 1948 to 2015.Also, it demonstrat the
+    unemployment rate acrossing those years.
+
+  - From table above, we can see that the final **Result** dataset has
+    822 observations and 11 variables, including year, month, gov\_gop,
     sen\_gop, rep\_gop, gov\_dem, sen\_dem, rep\_dem, president, close,
-    unemployment.
+    unemployment. The range of years for this final dataset is from 1947
+    to 2015.
 
 \#Problem 3
 
@@ -261,11 +310,11 @@ Popular_Baby_Names = distinct(Popular_Baby_Names)
 ## a
 
 ``` r
-A = filter(Popular_Baby_Names,
+Olivia = filter(Popular_Baby_Names,
            childs_first_name == "Olivia",
            gender == "FEMALE")
  
-pivot_wider(A, 
+pivot_wider(Olivia, 
   names_from = "year_of_birth", 
   values_from = "rank",
   id_cols = "ethnicity")
@@ -282,11 +331,11 @@ pivot_wider(A,
 ## b
 
 ``` r
-B = filter(Popular_Baby_Names,
+Male_baby = filter(Popular_Baby_Names,
            gender == "MALE",
            rank == which.min(rank))
  
-pivot_wider(B, 
+pivot_wider(Male_baby, 
   names_from = "year_of_birth", 
   values_from = "childs_first_name",
   id_cols = "ethnicity")
@@ -299,3 +348,20 @@ pivot_wider(B,
     ## 2 Black non hispanic         Noah   Noah   Ethan  Ethan  Jayden Jayden 
     ## 3 Hispanic                   Liam   Liam   Liam   Jayden Jayden Jayden 
     ## 4 White non hispanic         Joseph David  Joseph David  Joseph Michael
+
+## c
+
+``` r
+Male_WnH_2016 = filter(Popular_Baby_Names,
+           gender == "MALE",
+           ethnicity == "White non hispanic",
+           year_of_birth == 2016)
+
+ggplot(Male_WnH_2016,aes(x= rank,y= count)) + 
+  geom_point()+
+  ggtitle("White non-hispanic male children born in 2016") +
+  xlab("The rank in popularity of that name") + 
+  ylab("Number of children with the name")
+```
+
+![](Homework-2_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->

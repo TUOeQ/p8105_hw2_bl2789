@@ -81,6 +81,8 @@ pols_month = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeigh
          president = recode(as.character(prez_gop),'1'='gop','0'='dem'))%>%
   select(-prez_dem,-prez_gop,-day)
 
+str(pols_month)
+
 ```
 
 ## b
@@ -89,6 +91,8 @@ snp = read_csv(file = "C:/Users/61693/Desktop/data Science/fivethirtyeight_datas
   separate(date,into = c('month','day','year'),'/')%>%
   mutate(month = month.name[as.integer(month)])%>%
   select('year','month','close')
+
+str(snp)
 ```
 
 ## c
@@ -102,6 +106,8 @@ unemployment = pivot_longer(unemployment,
    mutate(month = as.character(factor(month, labels = month.name)),
           year = as.character(Year))%>%
   select(year,month,unemployment)
+
+str(unemployment)
   
 ```
 ## d
@@ -110,11 +116,16 @@ unemployment = pivot_longer(unemployment,
 Final = full_join(pols_month,snp)%>%
  drop_na(gov_gop)
 Result = full_join(Final,unemployment)%>%
- drop_na(gov_gop)
+  drop_na(gov_gop)
+ 
 
 str(Result)
 ```
-* From table above, we can see that the **Result** dataset has `r nrow(Result)` observations and `r ncol(Result)` variables, including year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president, close, unemployment.
+* From **pols_month** dataset has `r nrow(pols_month)` observations and `r ncol(pols_month)` variables, including `r colnames(pols_month)`. The range of years for this final dataset is from 1947 to 2015, the dataset provides the election data for governors, senators, representatives and president for being either republican or democrat.
+* From **snp** dataset has `r nrow(snp)` observations and `r ncol(snp)` variables, including `r colnames(snp)`. The range of years for this final dataset is from 1950 to 2015.This dataset provides the closing data for S&P acrossing 1950 to 2015 on the US stock market.
+* From **unemployment** dataset has `r nrow(unemployment)` observations and `r ncol(unemployment)` variables, including `r colnames(unemployment)`. The range of years for this final dataset is from 1948 to 2015.Also, it demonstrat the unemployment rate acrossing those years.
+
+* From table above, we can see that the final **Result** dataset has `r nrow(Result)` observations and `r ncol(Result)` variables, including year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president, close, unemployment. The range of years for this final dataset is from 1947 to 2015.
 
 #Problem 3
 
@@ -141,11 +152,11 @@ Popular_Baby_Names = distinct(Popular_Baby_Names)
 ```
 ## a
 ```{r}
-A = filter(Popular_Baby_Names,
+Olivia = filter(Popular_Baby_Names,
            childs_first_name == "Olivia",
            gender == "FEMALE")
  
-pivot_wider(A, 
+pivot_wider(Olivia, 
   names_from = "year_of_birth", 
   values_from = "rank",
   id_cols = "ethnicity")
@@ -154,11 +165,11 @@ pivot_wider(A,
 
 ## b
 ```{r}
-B = filter(Popular_Baby_Names,
+Male_baby = filter(Popular_Baby_Names,
            gender == "MALE",
            rank == which.min(rank))
  
-pivot_wider(B, 
+pivot_wider(Male_baby, 
   names_from = "year_of_birth", 
   values_from = "childs_first_name",
   id_cols = "ethnicity")
@@ -166,11 +177,17 @@ pivot_wider(B,
 
 ## c
 ```{r}
- ##for male, white non-hispanic children born in 2016, 
-filter(Popular_Baby_Names,
+
+Male_WnH_2016 = filter(Popular_Baby_Names,
            gender == "MALE",
            ethnicity == "White non hispanic",
            year_of_birth == 2016)
+
+ggplot(Male_WnH_2016,aes(x= rank,y= count)) + 
+  geom_point()+
+  ggtitle("White non-hispanic male children born in 2016") +
+  xlab("The rank in popularity of that name") + 
+  ylab("Number of children with the name")
 
 ```
 
